@@ -10,7 +10,13 @@ router.get('/', (req, res) => {
   Category.findAll({
     include: [{ model: Product}],
     })
-    .then(categories => res.json(categories))
+    .then(categories => {
+      const simpCat = categories.map(function(cat) { return cat.get({plain: true}) });
+      console.log(simpCat)
+      console.table(simpCat)
+      console.log(categories)
+      res.json(categories)
+    })
     .catch(err => {
       console.log(err);
       res.status(500).json(err);

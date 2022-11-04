@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   // find all tags
   // be sure to include its associated Product data
   Tag.findAll({
-    include: [{ model: Product}, { model: ProductTag }, { model: Category }],
+    include: [{ model: Product, through: ProductTag, as: 'tags_product' }],
   })
     .then(tags => res.json(tags))
     .catch(err => {
