@@ -30,11 +30,18 @@ router.get('/', (req, res) => {
 router.get('/:id',  (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
-  Product.findByPk({
+  Product.findOne({
     where: {
       id: req.params.id,
     },
-    include: [{ model: Category }, { model: Tag }, { model: ProductTag }],
+    include: [
+      { model: Category },
+      { 
+        model: Tag,
+        through: ProductTag,
+        as: 'product_tags'
+      }
+    ],
     })
     .then((productData) => {
     res.json(productData);
@@ -123,7 +130,7 @@ router.delete('/:id', (req, res) => {
     },
   })
     .then((deleteProduct) => {
-      res.json(deleteProduct);
+      res.json("Success!");
     })
     .catch((err) => res.json(err));
 });

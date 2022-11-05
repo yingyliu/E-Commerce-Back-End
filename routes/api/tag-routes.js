@@ -21,11 +21,11 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
-  Tag.findByPk({
+  Tag.findOne({
     where: {
       id: req.params.id,
     },
-    include: [{ model: Product}, { model: ProductTag }, { model: Category }],
+    include: [{ model: Product, through: ProductTag, as: 'tags_product' }],
   })
   .then((tagData) => {
     res.json(tagData);
@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
 });
 
 // CREATE a new tag
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
   // create a new tag
   Tag.create(req.body)
     .then((newTag) => {
@@ -61,7 +61,7 @@ router.put('/:id', (req, res) => {
     .then((updatedTag) => {
       res.json(updatedTag);
     })
-    .catach((err) => res.json(err));
+    .catch((err) => res.json(err));
 });
 
 // DELETE a tag
@@ -73,7 +73,7 @@ router.delete('/:id', (req, res) => {
     },
   })
     .then((deleteTag) => {
-      res.json(deleteTag);
+      res.json("Success!");
     })
     .catch((err) => res.json(err));
 });
