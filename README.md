@@ -17,7 +17,7 @@ This uses Node.js - Sequelize package and MySQL2 to set up database models and A
 
 ## Tech used
 - JavaScript
-- Node.js
+- Node.js - sequlize package & dotenv package
 - MySQL
 - Insomnia
 - Screencastify
@@ -46,6 +46,7 @@ npm start
 ## Learning point
 - I learn how to use sequelize to set up database models.
 - I learn how to use Insomnia to test API routes.
+- I learn how to use the dotenv package to store sensitive data.
 
 
 ## Link
